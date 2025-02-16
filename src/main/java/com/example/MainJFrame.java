@@ -13,7 +13,9 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
+//
 // EXMAPLE VALID LICENSE KEY =  FVC5J-5UKKH-248MZ-FW8KE-YA8P6
+//
 public class MainJFrame extends javax.swing.JFrame {
 
     private final static Color RED = new java.awt.Color(219, 4, 4);
