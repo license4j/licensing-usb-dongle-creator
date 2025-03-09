@@ -101,7 +101,7 @@ public class MainJFrame extends javax.swing.JFrame {
         namejTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("USB Dongle Creater");
+        setTitle("USB Dongle Creator");
 
         searchUSBjButton.setText("Search USB");
         searchUSBjButton.addActionListener(new java.awt.event.ActionListener() {
