@@ -42,8 +42,8 @@ public class MainJFrame extends javax.swing.JFrame {
             licenseKeyjTextField.setEditable(true);
 
             namejTextField.setText(License.getInstance().getSystemInformation().getUSBDongleName());
-            productIdjTextField.setText(License.getInstance().getSystemInformation().getUSBDongleVendorId());
-            vendorIdjTextField.setText(License.getInstance().getSystemInformation().getUSBDongleProductId());
+            productIdjTextField.setText(License.getInstance().getSystemInformation().getUSBDongleProductId());
+            vendorIdjTextField.setText(License.getInstance().getSystemInformation().getUSBDongleVendorId());
             serialjTextField.setText(License.getInstance().getSystemInformation().getUSBDongleSerial());
         } else {
             writeLicensejButton.setEnabled(false);
@@ -99,6 +99,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         namejTextField = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("USB Dongle Creator");
@@ -161,6 +163,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
         namejTextField.setEditable(false);
 
+        jLabel9.setText("Example License Key:");
+
+        jTextField1.setEditable(false);
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("3J9DD-MVAPS-EMBET-8U8ZA-S7JG3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,7 +205,11 @@ public class MainJFrame extends javax.swing.JFrame {
                             .addComponent(licenseKeyjTextField)
                             .addComponent(fullnamejTextField)
                             .addComponent(emailjTextField)
-                            .addComponent(companyjTextField))))
+                            .addComponent(companyjTextField)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1)))))
                 .addGap(20, 20, 20))
         );
 
@@ -227,6 +240,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(licenseKeyjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -261,16 +278,16 @@ public class MainJFrame extends javax.swing.JFrame {
             protected Void doInBackground() throws Exception {
 
                 /**
-                 * CHANGE BUILDER PROPERTIES.
+                 * Searches for USB sticks plugged-in.
                  *
-                 * USE THE SAME WITHIN YOUR REAL PRODUCT
+                 * It searches for an empty file "license.l4j" in the USB stick.
+                 * It can be any filename, just create an empty file in the USB
+                 * stick.
                  */
                 License.getInstance().getBuilder()
-                        .product("D9CC6259F144E8C0E002F4742AAB63E8")
+                        .product("DBB0047AC46D7BF16FEB57075E81C5C8")
                         .usbDongle(null, null, "license.l4j")
                         .build();
-
-                License.getInstance().validate();
 
                 return null;
             }
@@ -291,6 +308,19 @@ public class MainJFrame extends javax.swing.JFrame {
         SwingWorker worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
+                // Build again by including detected USB stick vendor id and product id.
+                // If you are using the same brand and model USB sticks to for licensing, define vendor id and product id
+                // in your software license validation code like below.
+                // If you are planning to use the same brand but if product Ids may change, then set product id to null.
+                License.getInstance().getBuilder()
+                        .product("DBB0047AC46D7BF16FEB57075E81C5C8")
+                        .usbDongle(
+                                vendorIdjTextField.getText(), // detected USB stick vendor id
+                                productIdjTextField.getText(), // detected USB stick product id
+                                "license.l4j" // file name
+                        )
+                        .build();
+
                 // validate method will write the license file if given license key is valid
                 // and a license usage will be created in License Server, see License Usages page.
                 // hostname and other will be updated if customer use the dongle on a internet connected computer.
@@ -371,7 +401,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField licenseKeyjTextField;
     private javax.swing.JTextField namejTextField;
     private javax.swing.JTextField productIdjTextField;
