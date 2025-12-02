@@ -16,7 +16,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>3.14.1</version>
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
@@ -56,13 +56,13 @@
         <dependency>
             <groupId>com.license4j</groupId>
             <artifactId>licensing-library</artifactId>
-            <version>5.0.4</version>
+            <version>5.0.5</version>
         </dependency>
         
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
-            <version>3.5.4</version>
+            <version>3.6.2</version>
         </dependency>
     </dependencies>
 </project>
